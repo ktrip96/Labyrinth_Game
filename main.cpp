@@ -1,9 +1,12 @@
 #include <iostream>
+#include "Engine.h"
 
 using namespace std;
 
-int main()
+// χρησιμοποιώ τα argc και argv, για να διαβάσω το αρχείο με τον χάρτη από το terminal
+
+int main(int argc, char **argv)
 {
-    cout << "Hello world" << endl;
+    Engine e(argc, argv);
     return 0;
 }
