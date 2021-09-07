@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <utility>
 
 using namespace std;
 
@@ -11,7 +12,13 @@ class Engine
     // χειρισμός χάρτη (στον constructor)
     // υπολογισμός score
 protected:
-    vector<vector<char>> Labyrinth;
+    /**  -1 ===> τοίχος
+     *    0 ===> δρόμος
+     *    1 ===> πετράδια + περγαμηνή
+     *    2 ===> τέρας
+     *    3 ===> player
+     **/
+    vector<vector<pair<char, int>>> Labyrinth;
 
 public:
     // constructor
@@ -29,7 +36,7 @@ public:
         {
             while (my_file.getline(row, MAX_MAP_LENGTH))
             {
-                vector<char> temp;
+                vector<pair<char, int>> temp;
                 for (int i = 0; i < MAX_MAP_LENGTH; i++)
                 {
                     // αν συναντήσεις το τέλος γραμμής, τότε βγες από την επανάληψη
@@ -37,9 +44,15 @@ public:
                     {
                         break;
                     }
+                    else if (row[i] == '*')
+                    {
+                        // o τοίχος συμβολίζεται με -1
+                        temp.push_back(make_pair(row[i], -1));
+                    }
                     else
                     {
-                        temp.push_back(row[i]);
+                        // ο δρόμος συμβολίζεται με 0
+                        temp.push_back(make_pair(row[i], 0));
                     }
                 }
                 Labyrinth.push_back(temp);
@@ -52,11 +65,25 @@ public:
 
     void renderLabyrinth()
     {
+        cout << "*** Labyrinth with Symbols *** " << endl;
         for (int i = 0; i < Labyrinth.size(); i++)
         {
             for (int j = 0; j < Labyrinth[i].size(); j++)
             {
-                cout << Labyrinth[i][j] << " ";
+                cout << Labyrinth[i][j].first << " ";
+            }
+            cout << endl;
+        }
+        cout << "*** Labyrinth with Numbers *** " << endl;
+
+        for (int i = 0; i < Labyrinth.size(); i++)
+        {
+            for (int j = 0; j < Labyrinth[i].size(); j++)
+            {
+                if (Labyrinth[i][j].second == 0)
+                    cout << " " << Labyrinth[i][j].second << " ";
+                else
+                    cout << Labyrinth[i][j].second << " ";
             }
             cout << endl;
         }
