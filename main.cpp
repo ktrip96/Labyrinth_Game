@@ -8,6 +8,42 @@ using namespace std;
 int main(int argc, char **argv)
 {
     Engine e(argc, argv);
-    e.renderLabyrinth();
+    // e.renderLabyrinth();
+    Potter p;
+
+    char ch;
+    while (1)
+    {
+        e.printGems();
+        e.renderLabyrinth();
+
+        cout << "Please press W, A, S, D to move, Q to stay still and E to exit" << endl;
+        cin >> ch;
+        switch (ch)
+        {
+        case 'A':
+            p.movePotter(e, 'A');
+            break;
+        case 'W':
+            p.movePotter(e, 'W');
+
+            break;
+        case 'S':
+            p.movePotter(e, 'S');
+
+            break;
+        case 'D':
+            p.movePotter(e, 'D');
+
+            break;
+        case 'Q':
+            p.movePotter(e, 'Q');
+
+            break;
+        }
+        if (ch == 'E')
+            break;
+    }
+
     return 0;
 }
