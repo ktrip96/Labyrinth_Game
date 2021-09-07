@@ -10,10 +10,21 @@ int main(int argc, char **argv)
     Engine e(argc, argv);
     // e.renderLabyrinth();
     Potter p;
+    Traal t;
+    Gnome g;
 
     char ch;
     while (1)
     {
+        if (e.returnisFoundPergamini())
+        {
+            return 0;
+        }
+        if (e.returnIsHarryAlive())
+        {
+            cout << "Harry Potter, the boy who lived, come to die" << endl;
+            return 0;
+        }
         e.printGems();
         e.renderLabyrinth();
 
@@ -43,6 +54,9 @@ int main(int argc, char **argv)
         }
         if (ch == 'E')
             break;
+        // uncomment the following line, if you want 2 monsters on the field
+        // t.move(e, "Traal");
+        g.move(e, "Gnome");
     }
 
     return 0;
